@@ -5,7 +5,7 @@ window.onload = function(){
     const socket = io.connect(serverURL, {secure: true});
     // register phone connection
     socket.emit('phone-connect');
-
+    
     socket.on('crash', function() {
         navigator.vibrate(500);
     });
@@ -34,6 +34,11 @@ window.onload = function(){
             update('x', e.beta);
             update('y', e.gamma);
             update('z', e.alpha ? 360 - e.alpha : null);
+            window.dispatchEvent(
+                new KeyboardEvent("keydown", {
+                    key:"ArrowLeft"
+                })
+            );
         });
     }
 };
