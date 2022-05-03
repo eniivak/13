@@ -2,6 +2,9 @@
 
 let x=0;
 let y=0;
+const serverURL = window.location.hostname + ":" +  window.location.port;
+
+const socket = io.connect(serverURL, {secure: true});
 
 window.onload= otra();
 function otra(){
@@ -9,8 +12,8 @@ function otra(){
     var context = canvas.getContext('2d');
     crearImagen(context);
     pintarTexto(context);
-    //setupSockets;
 }
+
 window.addEventListener("keydown", listener, false);
 function listener(e){
     const keyName= e.key;
@@ -18,6 +21,7 @@ function listener(e){
         moverCuadrado(document.getElementById("lienzo"),document.getElementById("lienzo").getContext("2d"),keyName);
     }
     else if(x<0){
+        socket.emit("crash")
         x=0
     }
     else if(y<0){
@@ -119,37 +123,4 @@ function borrar(canvas, context){
     context.clearRect(x, y,28,36);
 }
 
-export function setupSockets(){
 
-    const serverURL = window.location.hostname + ":" +  window.location.port;
-
-    const socket = io.connect(serverURL, {secure: true});
-    console.log(serverURL)
-    socket.onmessage = function(event) {
-        console.log("Respuesta: " + event.data);
-    }
-    socket.emit("desktop-connect")
-    socket.on("phone-move",function (data){
-        console.log("como sea esto me arranco los pelos");
-        console.log(data);
-        if(data>0){ //derecha
-            console.log("derecha")
-            window.dispatchEvent(
-                new KeyboardEvent("keydown",{
-                    key:"ArrowRight"
-                })
-            )
-        }
-
-        if(data<0){ //izquierda
-            console.log("izquierda")
-            window.dispatchEvent(
-                new KeyboardEvent("keydown",{
-                    key:"ArrowLeft"
-                })
-            )
-        }
-
-    });
-
-}

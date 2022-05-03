@@ -1,5 +1,4 @@
 
-//export function setupSockets(){
 window.onload=function (){
         const serverURL = window.location.hostname + ":" +  window.location.port;
 
@@ -10,10 +9,8 @@ window.onload=function (){
         }
         socket.emit("desktop-connect")
         socket.on("phone-move",function (data){
-            console.log("como sea esto me arranco los pelos");
-            console.log(data);
-            if(data>0){ //derecha
-                console.log("derecha")
+            if(data<0){ //derecha
+                console.log(data)
                 window.dispatchEvent(
                     new KeyboardEvent("keydown",{
                         key:"ArrowRight"
@@ -21,8 +18,7 @@ window.onload=function (){
                 )
             }
 
-            if(data<0){ //izquierda
-                console.log("izquierda")
+            if(data>=0){ //izquierda
                 window.dispatchEvent(
                     new KeyboardEvent("keydown",{
                         key:"ArrowLeft"

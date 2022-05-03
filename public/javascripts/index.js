@@ -10,6 +10,7 @@ window.onload = function(){
     socket.emit('phone-connect');
 
     socket.on('crash', function() {
+        console.log("ha entrado en el crash del telefono")
         navigator.vibrate(500);
     });
 
@@ -41,25 +42,5 @@ window.onload = function(){
 
         });
     }
-  /*  socket.on("truco",function (data){
-        console.log("como sea esto me arranco los pelos");
-        console.log(data);
-        if(data>0){ //derecha
-            window.dispatchEvent(
-                new KeyboardEvent("keydown",{
-                    key:"ArrowRight"
-                })
-            )
-        }
-
-        if(data<0){ //izquierda
-            window.dispatchEvent(
-                new KeyboardEvent("keydown",{
-                    key:"ArrowLeft"
-                })
-            )
-        }
-
-    });*/
 
 };
