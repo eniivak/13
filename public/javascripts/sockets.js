@@ -1,17 +1,32 @@
 
-//var serverURL ="wss://"+ window.location.host+"/desktop.html";
-var serverURL ="wss://localhost:8080/desktop.html";
-console.log(serverURL)
-//var socket = io.connect(serverURL)
+export function setupSockets(){
+    window.onload = function(){
 
-console.log("lele")
+        const serverURL = window.location.hostname + ":" +  window.location.port;
+        const socket = io.connect(serverURL, {secure: true});
 
-var socket = new WebSocket(serverURL,"echo-protocol")
+        socket.on("truco",function (data){
+            console.log("como sea esto me arranco los pelos");
+            console.log(data);
+            if(data>0){ //derecha
+                window.dispatchEvent(
+                    new KeyboardEvent("keydown",{
+                        key:"ArrowRight"
+                    })
+                )
+            }
 
-socket.send("algo")
-console.log(socket)
-/*
-socket.onopen = function(){
-    console.log("Socket conectado!");
+            if(data<0){ //izquierda
+                window.dispatchEvent(
+                    new KeyboardEvent("keydown",{
+                        key:"ArrowLeft"
+                    })
+                )
+            }
+
+        });
+
+    };
+
+
 }
-*/

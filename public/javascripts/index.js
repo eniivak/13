@@ -41,7 +41,7 @@ window.onload = function(){
 
         });
     }
-    socket.on("truco",function (data){
+  /*  socket.on("truco",function (data){
         console.log("como sea esto me arranco los pelos");
         console.log(data);
         if(data>0){ //derecha
@@ -60,6 +60,6 @@ window.onload = function(){
             )
         }
 
-    });
+    });*/
 
 };
