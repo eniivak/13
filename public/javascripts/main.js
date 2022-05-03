@@ -4,15 +4,14 @@ const contextScreen= canvasScreen.getContext('2d');
 const canvasSquare = document.getElementById('square');
 const contextSquare= canvasSquare.getContext('2d');*/
 //window.onload = setupSockets;
-var x=0;
-var y=0;
+const x=0;
+const y=0;
 
 window.onload= function(){
-    //setupSockets;
-    var canvas = document.getElementById("lienzo");
-    var context = canvas.getContext("2d");
+    setupSockets;
+    var canvas = document.getElementById('lienzo');
+    var context = canvas.getContext('2d');
     crearImagen(context);
-
     pintarTexto(context)
 
 }
@@ -36,8 +35,6 @@ function listener(e){
     }
 
 }
-
-
 
 function pintarTexto(context){
     context.font="bold 10px sans-serif"
@@ -97,28 +94,24 @@ function moverCuadrado(canvas,context,keyName){
 
     if (keyName== "ArrowLeft"){
         //x=x-- y=y
-        // borrar(canvas,context)
         this.x=this.x-2
         crearImagen(context)
 
     }
     else if(keyName== "ArrowRight" ){
         //x=x++ y=y
-        // borrar(canvas,context)
         this.x=this.x+2
         crearImagen(context)
 
     }
     else if(keyName == "ArrowUp"){
         //x=x y=y--
-        // borrar(canvas,context)
         this.y=this.y-2
         crearImagen(context)
 
     }
     else if(keyName == "ArrowDown"){
         //x=x y=y++
-        // borrar(canvas,context)
         this.y=this.y+2
         crearImagen(context)
 

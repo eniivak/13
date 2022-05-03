@@ -3,9 +3,12 @@ const serverURL = window.location.hostname + ":" +  window.location.port;
 window.onload = function(){
 
     const socket = io.connect(serverURL, {secure: true});
+    socket.onmessage = function(event) {
+        console.log("Respuesta: " + event.data);
+    }
     // register phone connection
     socket.emit('phone-connect');
-    
+
     socket.on('crash', function() {
         navigator.vibrate(500);
     });
@@ -24,8 +27,8 @@ window.onload = function(){
         }
     };
 
-    if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', function(e) {
+   if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', function(e) {
 
             socket.emit('phone-move', { alpha: e.alpha, beta: e.beta, gamma: e.gamma});
 
@@ -34,11 +37,29 @@ window.onload = function(){
             update('x', e.beta);
             update('y', e.gamma);
             update('z', e.alpha ? 360 - e.alpha : null);
-            window.dispatchEvent(
-                new KeyboardEvent("keydown", {
-                    key:"ArrowLeft"
-                })
-            );
+
+
         });
     }
+    socket.on("truco",function (data){
+        console.log("como sea esto me arranco los pelos");
+        console.log(data);
+        if(data>0){ //derecha
+            window.dispatchEvent(
+                new KeyboardEvent("keydown",{
+                    key:"ArrowRight"
+                })
+            )
+        }
+
+        if(data<0){ //izquierda
+            window.dispatchEvent(
+                new KeyboardEvent("keydown",{
+                    key:"ArrowLeft"
+                })
+            )
+        }
+
+    });
+
 };

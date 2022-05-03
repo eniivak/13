@@ -40,14 +40,15 @@ const httpsServer = https.createServer({
 }, app);
 
 httpsServer
-    .listen(3030, function () {
-      console.log('Example app listening on port 3030! Go to https://localhost:3030/')
+    .listen(8080, function () {
+      console.log('Example app listening on port 8080! Go to https://localhost:8080/')
     });
 
 const io = require('socket.io')(httpsServer);
 // create a WebSocket listener for the same server
-const realtimeListener = io.listen(httpsServer);
 
+
+const realtimeListener = io.listen(httpsServer);
 
 // object to store desktop sockets
 let desktopSocket = null;
@@ -72,11 +73,20 @@ realtimeListener.on('connection', function (socket) {
 
   // receives a connect message from a phone
   socket.on("phone-move", function (data) {
-    console.log("Phone moved:" + data.beta  );
+    //console.log("Phone moved:" + data.beta  );
+    //console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
     if (desktopSocket)
       desktopSocket.emit('phone-move', data.beta);
+    socket.emit("truco",data.beta);
+    console.log(data.beta);
   });
+
+
+
 });
+
+
 
 
 /**
