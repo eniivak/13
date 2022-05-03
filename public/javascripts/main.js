@@ -1,5 +1,4 @@
-import {setupSockets} from "./sockets.js" ;
-//window.onload = setupSockets;
+
 
 let x=0;
 let y=0;
@@ -10,7 +9,7 @@ function otra(){
     var context = canvas.getContext('2d');
     crearImagen(context);
     pintarTexto(context);
-    setupSockets;
+    //setupSockets;
 }
 window.addEventListener("keydown", listener, false);
 function listener(e){
@@ -118,4 +117,39 @@ function moverCuadrado(canvas,context,keyName){
 
 function borrar(canvas, context){
     context.clearRect(x, y,28,36);
+}
+
+export function setupSockets(){
+
+    const serverURL = window.location.hostname + ":" +  window.location.port;
+
+    const socket = io.connect(serverURL, {secure: true});
+    console.log(serverURL)
+    socket.onmessage = function(event) {
+        console.log("Respuesta: " + event.data);
+    }
+    socket.emit("desktop-connect")
+    socket.on("phone-move",function (data){
+        console.log("como sea esto me arranco los pelos");
+        console.log(data);
+        if(data>0){ //derecha
+            console.log("derecha")
+            window.dispatchEvent(
+                new KeyboardEvent("keydown",{
+                    key:"ArrowRight"
+                })
+            )
+        }
+
+        if(data<0){ //izquierda
+            console.log("izquierda")
+            window.dispatchEvent(
+                new KeyboardEvent("keydown",{
+                    key:"ArrowLeft"
+                })
+            )
+        }
+
+    });
+
 }

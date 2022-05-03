@@ -78,8 +78,8 @@ realtimeListener.on('connection', function (socket) {
 
     if (desktopSocket)
       desktopSocket.emit('phone-move', data.beta);
-    socket.emit("truco",data.beta);
-    console.log(data.beta);
+   /* socket.emit("truco",data.beta);
+    console.log(data.beta);*/
   });
 
 
