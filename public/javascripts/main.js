@@ -21,19 +21,23 @@ function listener(e){
         moverCuadrado(document.getElementById("lienzo"),document.getElementById("lienzo").getContext("2d"),keyName);
     }
     else if(x<0){
-        socket.emit("crash")
+        vibracion();
         x=0
     }
     else if(y<0){
         y=0
     }
-    else if(x>document.getElementById("lienzo").width){
-        x=document.getElementById("lienzo").width
+    else if(x>438){
+        vibracion();
+        x=440
     }
     else if(y<document.getElementById("lienzo").height){
         y=document.getElementById("lienzo").height
     }
 
+}
+function vibracion(){
+    socket.emit("crash")
 }
 
 function pintarTexto(context){
@@ -100,8 +104,14 @@ function moverCuadrado(canvas,context,keyName){
     }
     else if(keyName== "ArrowRight" ){
         //x=x++ y=y
-        x=x+2
-        crearImagen(context)
+        if(x<440){
+            x=x+2
+            crearImagen(context)
+        }
+        else {
+            vibracion()
+        }
+
 
     }
     else if(keyName == "ArrowUp"){

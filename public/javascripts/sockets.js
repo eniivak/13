@@ -10,7 +10,6 @@ window.onload=function (){
         socket.emit("desktop-connect")
         socket.on("phone-move",function (data){
             if(data<0){ //derecha
-                console.log(data)
                 window.dispatchEvent(
                     new KeyboardEvent("keydown",{
                         key:"ArrowRight"
